@@ -52,6 +52,7 @@ var Conway = (function() {
             if (n == 3) {
               data.set(i, j, 'ALIVE');
               changed = true;
+            }
           }
         }
       }
