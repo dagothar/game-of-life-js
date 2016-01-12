@@ -40,9 +40,24 @@ $(document).ready(function() {
     };
   };
   
-  $('.board').click(function(e) {
-    conway.toggleCell(conway.getCellPos(canvas, getMousePos(e, canvas)));
-    conway.render(canvas);
+  var paint = true;
+  $('.board').mousedown(function(e) {
+    var pos = conway.getCellPos(canvas, getMousePos(e, canvas));
+    paint = !conway.getCell(pos);
+    
+    $(this).bind('mousemove', function(e) {
+      var pos = conway.getCellPos(canvas, getMousePos(e, canvas));
+      conway.setCell(pos, paint);
+      conway.render(canvas);
+    });
+  });
+  
+  $('.board').mouseup(function(e) {
+    $(this).unbind('mousemove');
+  });
+  
+  $('.board').mouseout(function(e) {
+    $(this).unbind('mousemove');
   });
   
 });

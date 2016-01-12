@@ -58,7 +58,7 @@ var Conway = (function() {
       }
       
       return changed;
-    };
+    }
     
     this.render = function(canvas) {
       
@@ -72,7 +72,7 @@ var Conway = (function() {
           ctx.fillRect(x * dx, y * dy, dx, dy);
         }
       }
-    };
+    }
     
     this.getCellPos = function(canvas, mousePos) {
       
@@ -83,7 +83,7 @@ var Conway = (function() {
         x: Math.floor(mousePos.x / dx),
         y: Math.floor(mousePos.y / dy)
       };
-    };
+    }
     
     this.toggleCell = function(pos) {
 
@@ -92,7 +92,15 @@ var Conway = (function() {
       } else {
         data.set(pos.x, pos.y, 'DEAD');
       }
-    };
+    }
+    
+    this.getCell = function(pos) {
+      return data.get(pos.x, pos.y) == 'ALIVE';
+    }
+    
+    this.setCell = function(pos, value) {
+      data.set(pos.x, pos.y, value ? 'ALIVE' : 'DEAD');
+    }
   };
   
   return Conway;
