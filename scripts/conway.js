@@ -61,6 +61,7 @@ var Conway = (function() {
     };
     
     this.render = function(canvas) {
+      
       var dx = canvas.getAttribute('width') / width;
       var dy = canvas.getAttribute('height') / height;
       var ctx = canvas.getContext('2d');
@@ -74,6 +75,7 @@ var Conway = (function() {
     };
     
     this.getCellPos = function(canvas, mousePos) {
+      
       var dx = canvas.getAttribute('width') / width;
       var dy = canvas.getAttribute('height') / height;
       
@@ -84,7 +86,7 @@ var Conway = (function() {
     };
     
     this.toggleCell = function(pos) {
-      console.log(pos);
+
       if (data.get(pos.x, pos.y) == 'DEAD') {
         data.set(pos.x, pos.y, 'ALIVE');
       } else {
