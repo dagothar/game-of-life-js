@@ -36,6 +36,7 @@ var Conway = (function() {
     
     this.step = function() {
       var old_data = data.clone();
+      var changed = false;
       
       for (var i = 0; i < width; ++i) {
         for (var j = 0; j < height; ++j) {
@@ -43,12 +44,19 @@ var Conway = (function() {
           var n = countAliveNeighbours(old_data, i, j, this.Neighbourhood);
           
           if (old_data.get(i, j) == 'ALIVE') {
-            if (n < 2 || n > 3) data.set(i, j, 'DEAD');
+            if (n < 2 || n > 3) {
+              data.set(i, j, 'DEAD');
+              changed = true;
+            }
           } else { // DEAD
-            if (n == 3) data.set(i, j, 'ALIVE');
+            if (n == 3) {
+              data.set(i, j, 'ALIVE');
+              changed = true;
           }
         }
       }
+      
+      return changed;
     };
     
     this.render = function(canvas) {
@@ -60,8 +68,27 @@ var Conway = (function() {
         for (var y = 0; y < height; ++y) {
           ctx.fillStyle =  this.Colors[data.get(x, y)];
           ctx.fillRect(x * dx, y * dy, dx, dy);
-        };
+        }
+      }
+    };
+    
+    this.getCellPos = function(canvas, mousePos) {
+      var dx = canvas.getAttribute('width') / width;
+      var dy = canvas.getAttribute('height') / height;
+      
+      return {
+        x: Math.floor(mousePos.x / dx),
+        y: Math.floor(mousePos.y / dy)
       };
+    };
+    
+    this.toggleCell = function(pos) {
+      console.log(pos);
+      if (data.get(pos.x, pos.y) == 'DEAD') {
+        data.set(pos.x, pos.y, 'ALIVE');
+      } else {
+        data.set(pos.x, pos.y, 'DEAD');
+      }
     };
   };
   

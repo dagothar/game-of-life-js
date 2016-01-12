@@ -6,9 +6,13 @@ $(document).ready(function() {
   var canvas = $('.board').get(0);
   conway.render(canvas);
   
+  var stepTimer = undefined;
+  
   function step() {
-    conway.step();
+    var changed = conway.step();
     conway.render(canvas);
+    
+    if (!changed) clearInterval(stepTimer);
   };
   
   $('.conway-step').click(function() {
@@ -20,14 +24,25 @@ $(document).ready(function() {
     conway.render(canvas);
   });
   
-  var stepTimer = undefined;
-  
   $('.conway-run').click(function() {
-    stepTimer = setInterval(step, 10);
+    stepTimer = setInterval(step, 100);
   });
   
   $('.conway-stop').click(function() {
     clearInterval(stepTimer);
+  });
+  
+  function getMousePos(e, client) {
+    var rect = client.getBoundingClientRect();
+    return {
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top
+    };
+  };
+  
+  $('.board').click(function(e) {
+    conway.toggleCell(conway.getCellPos(canvas, getMousePos(e, canvas)));
+    conway.render(canvas);
   });
   
 });
