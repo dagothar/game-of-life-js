@@ -23,7 +23,7 @@ $(document).ready(function() {
   var stepTimer = undefined;
   
   $('.conway-run').click(function() {
-    stepTimer = setInterval(step, 100);
+    stepTimer = setInterval(step, 10);
   });
   
   $('.conway-stop').click(function() {
