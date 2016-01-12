@@ -50,3 +50,9 @@ var Array2 = (function() {
   
   return Array2;
 } ());
+
+if (typeof define === "function" && define.amd) {
+  define("array2", [], function() {
+    return Array2;
+  });
+}
