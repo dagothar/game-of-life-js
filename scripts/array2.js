@@ -23,6 +23,14 @@ var Array2 = (function() {
       return [ m, n ];
     };
     
+    this.getData = function() {
+      return data;
+    };
+    
+    this.setData = function(_data) {
+      data = _data;
+    };
+    
     this.get = function(i, j) {
       checkDim(i, j);
       return data[i][j];
@@ -45,6 +53,18 @@ var Array2 = (function() {
           data[i][j] = cb(i, j, data[i][j]);
         };
       };
+    };
+    
+    this.clone = function() {
+      var copy = new Array2(m, n);
+      
+      var _data = [];
+      for (var i = 0; i < m; ++i) {
+        _data[i] = data[i].slice();
+      }
+      copy.setData(_data);
+      
+      return copy;
     };
   };
   
