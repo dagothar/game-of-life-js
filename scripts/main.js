@@ -41,9 +41,12 @@ $(document).ready(function() {
   };
   
   var paint = true;
+  var drag = false;
   $('.board').mousedown(function(e) {
     var pos = conway.getCellPos(canvas, getMousePos(e, canvas));
     paint = !conway.getCell(pos);
+    conway.setCell(pos, paint);
+    conway.render(canvas);
     
     $(this).bind('mousemove', function(e) {
       var pos = conway.getCellPos(canvas, getMousePos(e, canvas));
