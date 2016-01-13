@@ -7,12 +7,11 @@ $(document).ready(function() {
   conway.render(canvas);
   
   var stepTimer = undefined;
+  var running = false;
   
   function step() {
-    var changed = conway.step();
+    conway.step();
     conway.render(canvas);
-    
-    if (!changed) clearInterval(stepTimer);
   };
   
   $('.conway-step').click(function() {
@@ -24,12 +23,14 @@ $(document).ready(function() {
     conway.render(canvas);
   });
   
-  $('.conway-run').click(function() {
-    stepTimer = setInterval(step, 100);
-  });
-  
-  $('.conway-stop').click(function() {
-    clearInterval(stepTimer);
+  $('.conway-start-stop').click(function() {
+    if (!running) {
+      stepTimer = setInterval(step, 100);
+      running = true;
+    } else {
+      clearInterval(stepTimer);
+      running = false;
+    }
   });
   
   function getMousePos(e, client) {
